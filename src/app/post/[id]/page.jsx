@@ -52,7 +52,7 @@ async function page({ params }) {
           width={720}
           height={420}
           alt={post.title}
-          className="rounded max-w-2xl mx-auto h-auto"
+          className="rounded w-full max-w-2xl mx-auto h-auto"
         />
         <div className="my-5 mt-8 lg:mt-12 flex items-center justify-between">
           <div className="flex items-start gap-3">

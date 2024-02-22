@@ -27,8 +27,8 @@ export default function NewPost() {
         }
       });
 
-      toast.success(res.data.message);
       router.refresh();
+      toast.success(res.data.message);
       router.push("/")
     } catch (error) {
       const res = await error.response.data;
