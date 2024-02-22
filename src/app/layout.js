@@ -1,9 +1,12 @@
+import dynamic from 'next/dynamic';
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "./components/navbar";
 import "./globals.css";
 
+const Navbar = dynamic(() => import('@/app/components/navbar'), {
+  ssr: false,
+});
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
