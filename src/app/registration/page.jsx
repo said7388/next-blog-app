@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
 import { toast } from "react-toastify";
+import { setTokenCookieAction, setUserCookieAction } from "../actions";
 
 export default function Registration() {
   const [userInput, setUserInput] = useState({
@@ -26,8 +27,8 @@ export default function Registration() {
         name: userInput.name,
       });
       
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("token", res.data.token);
+      setUserCookieAction(JSON.stringify(res.data.user));
+      setTokenCookieAction(res.data.token);
       toast.success(res.data.message);
       router.refresh();
       router.replace("/");

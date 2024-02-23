@@ -2,7 +2,10 @@ import BlogCard from "./components/blog-card";
 
 const getBlogPosts = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-    cache: "no-cache"
+    cache: "no-cache",
+    next: {
+      tags: ["posts"]
+    }
   });
   const data = await res.json();
   return data;

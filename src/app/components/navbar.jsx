@@ -1,17 +1,13 @@
 // @flow strict
-"use client";
-
+"use client"
 import Link from 'next/link';
-import { useRouter } from "next/navigation";
+import { removeTokenCookieAction, removeUserCookieAction } from '../actions';
 
-function Navbar() {
-  const token = localStorage.getItem('token');
-  const router = useRouter();
+function Navbar({ token }) {
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    router.refresh();
+    removeTokenCookieAction();
+    removeUserCookieAction();
   };
 
   return (

@@ -1,6 +1,8 @@
 // @flow strict
+import { getTokenCookieAction, getUserCookieAction } from '@/app/actions';
 import CommentCard from '@/app/components/comment-card';
 import CommentInput from '@/app/components/comment-input';
+import PostController from '@/app/components/post-controller';
 import PostReaction from '@/app/components/post-reaction';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -40,12 +42,27 @@ const getBlogPostComment = async (id) => {
 
 async function page({ params }) {
   const { id } = params;
-  const { data: post } = await getBlogPost(id);
-  const { reactions, totalReaction } = await getBlogPostReaction(id);
-  const { data: comments, pagination } = await getBlogPostComment(id);
+  const tokenData = await getTokenCookieAction();
+  const token = tokenData?.value;
+  const userData = await getUserCookieAction();
+  const user = userData?.value ? JSON.parse(userData.value) : {};
+
+  const postData = getBlogPost(id);
+  const reactionData = getBlogPostReaction(id);
+  const commentData = getBlogPostComment(id);
+  const [postRes, reactionsRes, commentsRes] = await Promise.all([postData, reactionData, commentData]);
+  const post = postRes.data;
+  const { reactions, totalReaction } = reactionsRes;
+  const { data: comments, pagination } = commentsRes;
 
   return (
-    <div className="bg-white p-8 rounded-lg">
+    <div className="bg-white p-8 rounded-lg my-5 relative">
+      <PostController
+        user={user}
+        post={post}
+        token={token}
+      />
+
       <div className="py-8 border-b">
         <Image
           src="/placeholder.png"
@@ -76,6 +93,8 @@ async function page({ params }) {
             totalReaction={totalReaction}
             reactions={reactions}
             postId={id}
+            token={token}
+            user={user}
           />
         </div>
         <h2 className="text-3xl font-bold my-8">
@@ -88,7 +107,7 @@ async function page({ params }) {
       <div className="py-8">
         <h2 className="text-2xl font-bold mb-8">Top Comments</h2>
         <div className="flex flex-col gap-8">
-          <CommentInput postId={id} />
+          <CommentInput token={token} postId={id} />
           {
             comments.length > 0 && comments.map((comment) => (
               <CommentCard key={comment.id} comment={comment} />

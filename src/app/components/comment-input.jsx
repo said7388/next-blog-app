@@ -7,9 +7,8 @@ import { useRouter } from "next/navigation";
 import { useState } from 'react';
 import { toast } from "react-toastify";
 
-function CommentInput({ postId }) {
+function CommentInput({ postId, token }) {
   const [content, setContent] = useState('');
-  const user = localStorage.getItem('token');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -24,7 +23,7 @@ function CommentInput({ postId }) {
         content: content,
       }, {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + token,
         }
       });
 
@@ -39,7 +38,7 @@ function CommentInput({ postId }) {
   return (
     <>
       {
-        !user ?
+        !token ?
           <div className="flex justify-center py-5">
             <p>
               Please <Link className="text-indigo-500" href="/login">login</Link> to write new comment.

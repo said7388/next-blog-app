@@ -5,9 +5,7 @@ import { useRouter } from "next/navigation";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { toast } from "react-toastify";
 
-function PostReaction({ totalReaction, reactions, postId }) {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+function PostReaction({ totalReaction, reactions, postId , token, user}) {
   const router = useRouter();
 
   const findMyReaction = () => {
@@ -26,7 +24,7 @@ function PostReaction({ totalReaction, reactions, postId }) {
         post_id: postId,
       }, {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + token,
         }
       });
 
