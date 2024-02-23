@@ -84,7 +84,7 @@ async function page({ params }) {
               <h3 className="text-lg font-semibold">
                 {post.author}
               </h3>
-              <p className="text-sm">
+              <p className="text-xs">
                 {new Date(post.created_at).toDateString()}
               </p>
             </div>

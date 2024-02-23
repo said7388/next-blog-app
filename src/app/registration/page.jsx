@@ -39,7 +39,7 @@ export default function Registration() {
   };
 
   return (
-    <div className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200 w-full max-w-lg mx-auto">
+    <div className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200 w-full max-w-lg mx-auto my-6">
       <div className="p-8">
         <header className="mb-4 text-center">
           <h3 className="text-2xl font-medium text-slate-700">Registration</h3>

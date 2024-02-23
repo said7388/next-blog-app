@@ -1,11 +1,11 @@
 // @flow strict
 "use client";
 
-import postsRevalidateAction from "@/app/actions";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
 import { toast } from "react-toastify";
+import { postsRevalidateAction } from "../actions";
 
 function UpdatePost({ post, token }) {
   const router = useRouter();
